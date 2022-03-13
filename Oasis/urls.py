@@ -15,15 +15,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
 from web import views
 from . import testdb
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/',views.index),
-    path('',views.login),
+    # path('index/',views.index),
+    # path('login/',views.customerLogin, name="customerlogin"),       #载入login页面
+    # path('ad_login/',views.managerindex, name="managerlogin"),
+    path('',views.basePerform),
     path('login/',views.login),
+    path('customerindex',views.customerindex),
+    path('dagongren',views.dagongrenindex),
+    # path('customerindex/',views.customerindex),
     # path('find_accout/',views.find_accout),
     # path('testdb/', testdb.testdb),
     # path('register/',views.clickregister,name="clickregister"),
+    path('login/register/',views.register),
+    path('managerindex/', views.managerindex),
     path('register/',views.register),
+    # path('customerbook/bookdetail/', views.bookdetail,name='bookdetail'),
+    url(r'customerbook/',views.display),
+    url(r'bookedroom/',views.displaybooked),
+    url(r'allbooked/',views.allocate),
+    url(r'givemoney/',views.givemoney),
+    url(r'alterprice/',views.pricemanage),
+    url(r'baobiao/',views.myform),
+    url(r'formguyuan/',views.gform),
+    path('bookdetail/',views.bookdetail),
+    path('alterdetail/',views.alterdetail),
+    # url('customerbook/bookdetail/',views.bookdetail),
 ]
