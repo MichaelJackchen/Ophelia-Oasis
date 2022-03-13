@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ophelia 的 Oasis</title>
+</head>
+<body>
+<h1>welcome!</h1>
+<table>
+    <thead>
+    <tr>
+        <th>房间号</th>
+        <th>房型</th>
+        <th>房价</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for room in rooms %}
+    <tr>
+        <td>{{ room.rno }}</td>
+        <td>{{ room.rtype }}</td>
+        <td>{{ room.rprice }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<table>
+    <thead>
+    <tr>
+        <th>1</th>
+        <th>2</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.sno }}</td>
+        <td>{{ user.spassword }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<!--<form method="get">-->
+<!--    <input type="text" name="allroom">-->
+<!--    <input type="submit" value="搜索">-->
+<!--</form>-->
+</body>
+</html>

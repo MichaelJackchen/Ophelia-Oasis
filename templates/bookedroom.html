@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!--使用在线引入，可能有……emm-->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <title>我的预订信息</title>
+</head>
+<body>
+<div class="container">
+            <!--面板的情景样式-->
+            <!--<div class="panel panel-primary">-->
+            <div class="panel panel-default" style="margin: 10px">
+                <div class="panel-heading">
+                    <!--面板的标题-->
+                    <h3 class="panel-title text-center">预订记录 </h3>
+                </div>
+                <!--面板的主体-->
+                <!--<div class="panel-body">-->
+                    <!--在面板中嵌入一个表格-->
+                    <table class="table table-bordered table-hover text-center" style="padding: 10px">
+                        <thead>
+                        <tr class="bg-success" >
+                            <td>预订编号</td>
+                            <td>预定日期</td>
+                            <td>预订类型</td>
+                            <td>预订天数</td>
+                            <td>预订房型</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {% for room in rooms %}
+                            <td>{{room.id}}</td>
+                            <td>{{ room.bdate }}</td>
+                            {% if room.btype == 1 %}
+                                <td><a href="">预付金预订</a></td>
+                            {% else %}
+                                <td><a href="">常规预订</a></td>
+                            {% endif %}
+                            <td>{{ room.bdays }}</td>
+                            <td>{{ room.broomtype }}</td>
+                        </tr>
+                        {% endfor %}
+
+                       </tbody>
+                    </table>
+<!--                <form method="post">-->
+<!--                    <input id="type" type="text" list="typelist" placeholder="请选择房间类型" name="fanghao">-->
+<!--                    <datalist id="typelist">-->
+<!--                        {% for room in rooms %}-->
+<!--                    　　<option>{{ room.rtype }}</option>-->
+<!--                        {% endfor %}-->
+<!--                    </datalist>-->
+<!--                    <input type="submit" name="yuding" value="点击预订">-->
+<!--                    </form>-->
+            </div>
+
+        </div>
+    </div>
+ <div style="text-align:center">
+    <form method="post">
+                    <input id="type" type="text" list="typelist" placeholder="请选择预订编号" name="fanghao">
+                    <datalist id="typelist">
+                        {% for room in rooms %}
+                    　　<option>{{ room.id }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <input type="submit" name="genggai" value="点击更改">
+                    <input type="submit" name="quxiao" value="点击取消">
+                    <p style="font-size:10px;color:red">注意！取消预付金预订将不退款</p>
+    </form>
+     <div/>
+    <div class="row">
+        <div class="col-md-12">
+
+            <!--分页通常写到一对nav标签中,居中显示-->
+            <nav class="text-center">
+                <!--分页基类容器: .pagination-->
+                <ul class="pagination pagination-md">
+                    <li class="disabled"><a href="">«上一页</a></li>
+                    <li class="active"><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="">4</a></li>
+                    <li><a href="">5</a></li>
+                    <li><a href="">下一页»</a></li>
+                </ul>
+
+            </nav>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<!--<script src="js/bootstrap.min.js"></script>-->
+</body>
+</html>

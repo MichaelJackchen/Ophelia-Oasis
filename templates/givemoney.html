@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!--使用在线引入，可能有……emm-->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script type="text/javascript">
+        function doPrint() {
+            //获取整个打印前页面，作用是打印后恢复。
+            bdhtml = window.document.body.innerHTML;
+            sprnstr = "<!--startprint-->"; //标记打印区域开始
+            eprnstr = "<!--endprint-->";//标记打印区域结束
+            //获取要打印的区域, 从标记开始处向下获取。
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);//17表示光标右移17个单位
+            //删除结束标记后面的内容。
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            //将页面显示要打印的内容。
+            window.document.body.innerHTML = prnhtml;
+            //打印整个页面
+            window.print(prnhtml);
+            //恢复打印前的页面
+            window.document.body.innerHTML = bdhtml;
+
+        }
+        function doPrint2() {
+            //获取整个打印前页面，作用是打印后恢复。
+            bdhtml = window.document.body.innerHTML;
+            sprnstr = "<!--startprint2-->"; //标记打印区域开始
+            eprnstr = "<!--endprint2-->";//标记打印区域结束
+            //获取要打印的区域, 从标记开始处向下获取。
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);//17表示光标右移17个单位
+            //删除结束标记后面的内容。
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            //将页面显示要打印的内容。
+            window.document.body.innerHTML = prnhtml;
+            //打印整个页面
+            window.print(prnhtml);
+            //恢复打印前的页面
+            window.document.body.innerHTML = bdhtml;
+
+        }
+    </script>
+    <title>结账</title>
+</head>
+<body>
+<!--startprint-->
+<div class="container">
+            <!--面板的情景样式-->
+            <!--<div class="panel panel-primary">-->
+            <div class="panel panel-default" style="margin: 10px">
+                <div class="panel-heading">
+                    <!--面板的标题-->
+                    <h3 class="panel-title text-center">入住报表 </h3>
+                </div>
+                <!--面板的主体-->
+                <!--<div class="panel-body">-->
+                    <!--在面板中嵌入一个表格-->
+                    <table class="table table-bordered table-hover text-center" style="padding: 10px">
+                        <thead>
+                        <tr class="bg-success" >
+                            <td>入住编号</td>
+                            <td>入住房号</td>
+                            <td>入住日期</td>
+                            <td>入住客户</td>
+                            <td>入住天数</td>
+                            <td>是否结账</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {% for check in checks %}
+                            <td>{{check.id}}</td>
+                            <td>{{check.crno}}</td>
+                            <td>{{ check.cdate }}</td>
+                            <td>{{ check.ccno }}</td>
+                            <td>{{ check.cdays }}</td>
+                            {% if check.cpaid == 0 %}
+                                <td><a href="">未结账</a></td>
+                            {% else %}
+                                <td><a href="">已结账</a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+
+                       </tbody>
+                    </table>
+            </div>
+
+        </div>
+    </div>
+<!--endprint-->
+
+
+ <div style="text-align:center">
+    <form method="post">
+                    <input id="type2" type="text" list="typelist2" placeholder="请选择入住编号" name="bianhao">
+                    <datalist id="typelist2">
+                        {% for check in checks %}
+                    　　<option>{{ check.id }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <input type="submit" name="jiezhang" value="点击结账">
+    </form>
+ </div>
+ <div align="center">
+<button type="button" onclick="doPrint()">打印票据</button>
+    <div/>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!--分页通常写到一对nav标签中,居中显示-->
+            <nav class="text-center">
+                <!--分页基类容器: .pagination-->
+                <ul class="pagination pagination-md">
+                    <li class="disabled"><a href="">«上一页</a></li>
+                    <li class="active"><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="">4</a></li>
+                    <li><a href="">5</a></li>
+                    <li><a href="">下一页»</a></li>
+                </ul>
+
+            </nav>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<!--<script src="js/bootstrap.min.js"></script>-->
+</body>
+</html>

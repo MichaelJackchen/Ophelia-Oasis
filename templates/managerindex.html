@@ -2,26 +2,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="statics/css/style.css" rel="stylesheet" />
-<title>《osisa！欢迎您！……</title>
+    {% load static %}
+<link href="{% static "css/style2.css" %}" rel="stylesheet" />
+<title>管理员界面</title>
 </head>
 
 <body>
 <div class="con">
   <div class="head">
     <div class="logo">
-      <h1>osisa！让您完美享受假期……</h1>
+      <h1>hello！这里是管理员界面……</h1>
     </div>
     <div class="nav">
       <ul>
-        <li><a href="login">登录</a></li>
+        <li><a href="alterprice">基价管理</a></li>
+        <li><a href="baobiao">查看报表</a></li>
 
       </ul>
     </div>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>
-  <div class="lunbo"><a href="#"><img src="statics/images/start.jpg"  width="720"/></a></div>
+  <div class="lunbo"><a href="#">
+      {% load static %}
+      <img src="{% static "images/start.jpg" %}"  width="720"/>
+  </a></div>
   <div class="clear"></div>
   <div class="main">
       <p>&nbsp;</p>
@@ -36,11 +41,7 @@
     <p></p>
   </div>
   <div class="clear"></div>
-  <div class="foot">
-    <p>版权所有：《大话西游之大圣娶亲》</p>
-    <p>All Rights Reserved</p>
-  </div>
-  <div class="clear"></div>
+
 </div>
 </body>
 </html>

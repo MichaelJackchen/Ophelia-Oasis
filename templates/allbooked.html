@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!--使用在线引入，可能有……emm-->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <title>预订信息</title>
+</head>
+<body>
+<div class="container">
+            <!--面板的情景样式-->
+            <!--<div class="panel panel-primary">-->
+            <div class="panel panel-default" style="margin: 10px">
+                <div class="panel-heading">
+                    <!--面板的标题-->
+                    <h3 class="panel-title text-center">预订记录 </h3>
+                </div>
+                <!--面板的主体-->
+                <!--<div class="panel-body">-->
+                    <!--在面板中嵌入一个表格-->
+                    <table class="table table-bordered table-hover text-center" style="padding: 10px">
+                        <thead>
+                        <tr class="bg-success" >
+                            <td>预订编号</td>
+                            <td>预订客户</td>
+                            <td>预定日期</td>
+                            <td>预订类型</td>
+                            <td>预订天数</td>
+                            <td>预订房型</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {% for room in rooms %}
+                            <td>{{room.id}}</td>
+                            <td>{{room.bcno_id}}</td>
+                            <td>{{ room.bdate }}</td>
+                            {% if room.btype == 1 %}
+                                <td><a href="">预付金预订</a></td>
+                            {% else %}
+                                <td><a href="">常规预订</a></td>
+                            {% endif %}
+                            <td>{{ room.bdays }}</td>
+                            <td>{{ room.broomtype }}</td>
+                        </tr>
+                        {% endfor %}
+
+                       </tbody>
+                    </table>
+            </div>
+
+        </div>
+    </div>
+
+ <div style="text-align:center">
+    <form method="post">
+                    <input id="type" type="text" list="typelist" placeholder="请选择房号" name="fanghao">
+                    <datalist id="typelist">
+                        {% for fangjian in fangjians %}
+                    　　<option>{{ fangjian.rno }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <input id="type2" type="text" list="typelist2" placeholder="请选择预订编号" name="bianhao">
+                    <datalist id="typelist2">
+                        {% for yuding in rooms %}
+                    　　<option>{{ yuding.id }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <input type="submit" name="fenpei" value="点击分配房间">
+    </form>
+     <div/>
+    <div class="panel panel-default2" style="margin: 10px">
+                <div class="panel-heading2">
+                    <!--面板的标题-->
+                    <h3 class="panel-title text-center2">所有房间 </h3>
+                </div>
+                <!--面板的主体-->
+                <!--<div class="panel-body">-->
+                    <!--在面板中嵌入一个表格-->
+                    <table class="table table-bordered table-hover text-center" style="padding: 10px">
+                        <thead>
+                        <tr class="bg-success" >
+                            <td>房号</td>
+                            <td>房型</td>
+                            <td>房价</td>
+                            <td>是否入住</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {% for fangjian in fangjians %}
+                            <td>{{fangjian.rno}}</td>
+                            <td>{{ fangjian.rtype }}</td>
+                            <td>{{ fangjian.rprice }}</td>
+                            {% if fangjian.rin == 1 %}
+                                <td><a href="">已经入住</a></td>
+                            {% else %}
+                                <td><a href="">未入住</a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+
+                       </tbody>
+                    </table>
+            </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!--分页通常写到一对nav标签中,居中显示-->
+            <nav class="text-center">
+                <!--分页基类容器: .pagination-->
+                <ul class="pagination pagination-md">
+                    <li class="disabled"><a href="">«上一页</a></li>
+                    <li class="active"><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="">4</a></li>
+                    <li><a href="">5</a></li>
+                    <li><a href="">下一页»</a></li>
+                </ul>
+
+            </nav>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<!--<script src="js/bootstrap.min.js"></script>-->
+</body>
+</html>

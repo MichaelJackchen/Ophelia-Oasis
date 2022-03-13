@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!--使用在线引入，可能有……emm-->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script type="text/javascript">
+        function doPrint() {
+            //获取整个打印前页面，作用是打印后恢复。
+            bdhtml = window.document.body.innerHTML;
+            sprnstr = "<!--startprint-->"; //标记打印区域开始
+            eprnstr = "<!--endprint-->";//标记打印区域结束
+            //获取要打印的区域, 从标记开始处向下获取。
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);//17表示光标右移17个单位
+            //删除结束标记后面的内容。
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            //将页面显示要打印的内容。
+            window.document.body.innerHTML = prnhtml;
+            //打印整个页面
+            window.print(prnhtml);
+            //恢复打印前的页面
+            window.document.body.innerHTML = bdhtml;
+
+        }
+        function doPrint2() {
+            //获取整个打印前页面，作用是打印后恢复。
+            bdhtml = window.document.body.innerHTML;
+            sprnstr = "<!--startprint2-->"; //标记打印区域开始
+            eprnstr = "<!--endprint2-->";//标记打印区域结束
+            //获取要打印的区域, 从标记开始处向下获取。
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);//17表示光标右移17个单位
+            //删除结束标记后面的内容。
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            //将页面显示要打印的内容。
+            window.document.body.innerHTML = prnhtml;
+            //打印整个页面
+            window.print(prnhtml);
+            //恢复打印前的页面
+            window.document.body.innerHTML = bdhtml;
+
+        }
+    </script>
+    <title>查看报表</title>
+</head>
+<body>
+<!--startprint-->
+<div class="container">
+            <!--面板的情景样式-->
+            <!--<div class="panel panel-primary">-->
+            <div class="panel panel-default" style="margin: 10px">
+                <div class="panel-heading">
+                    <!--面板的标题-->
+                    <h3 class="panel-title text-center">预订记录报表 </h3>
+                </div>
+                <!--面板的主体-->
+                <!--<div class="panel-body">-->
+                    <!--在面板中嵌入一个表格-->
+                    <table class="table table-bordered table-hover text-center" style="padding: 10px">
+                        <thead>
+                        <tr class="bg-success" >
+                            <td>预订编号</td>
+                            <td>预订客户</td>
+                            <td>预定日期</td>
+                            <td>预订类型</td>
+                            <td>预订天数</td>
+                            <td>预订房型</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {% for room in rooms %}
+                            <td>{{room.id}}</td>
+                            <td>{{room.bcno_id}}</td>
+                            <td>{{ room.bdate }}</td>
+                            {% if room.btype == 1 %}
+                                <td><a href="">预付金预订</a></td>
+                            {% else %}
+                                <td><a href="">常规预订</a></td>
+                            {% endif %}
+                            <td>{{ room.bdays }}</td>
+                            <td>{{ room.broomtype }}</td>
+                        </tr>
+                        {% endfor %}
+
+                       </tbody>
+                    </table>
+            </div>
+
+        </div>
+<!--endprint-->
+
+<div class="row">
+        <div class="col-md-12">
+
+            <!--分页通常写到一对nav标签中,居中显示-->
+            <nav class="text-center">
+                <!--分页基类容器: .pagination-->
+                <ul class="pagination pagination-md">
+                    <li class="disabled"><a href="">«上一页</a></li>
+                    <li class="active"><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="">4</a></li>
+                    <li><a href="">5</a></li>
+                    <li><a href="">下一页»</a></li>
+                </ul>
+
+            </nav>
+
+        </div>
+    </div>
+    <div align="center">
+<button type="button" onclick="doPrint()">打印预定记录报表</button>
+<button type="button" onclick="doPrint2()">打印收入报表</button>
+    <div/>
+<!--startprint2-->
+    <div class="panel panel-default2" style="margin: 10px">
+                <div class="panel-heading">
+                    <!--面板的标题-->
+                    <h3 class="panel-title text-center">每日入住报表 </h3>
+                </div>
+                <!--面板的主体-->
+                <!--<div class="panel-body">-->
+                    <!--在面板中嵌入一个表格-->
+                    <table class="table table-bordered table-hover text-center" style="padding: 10px">
+                        <thead>
+                        <tr class="bg-success" >
+                            <td>收入编号</td>
+                            <td>收入类型</td>
+                            <td>收入房号</td>
+                            <td>收入房型</td>
+                            <td>收入金额</td>
+                            <td>收入日期</td>
+                            <td>实际入住天数</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {% for fangjian in fangjians %}
+                            <td>{{fangjian.id}}</td>
+                            {% if fangjian.mtype == 1 %}
+                                <td><a href="">预付金收入</a></td>
+                            {% elif fangjian.mtype == 2%}
+                                 <td><a href="">取消常规预订支付</a></td>
+                            {% elif fangjian.mtype == 3%}
+                                 <td><a href="">常规预订收入</a></td>
+                            {% else %}
+                                 <td><a href="">更改预付金收入</a></td>
+                            {% endif %}
+
+
+                            <td>{{ fangjian.mrno }}</td>
+                            <td>{{ fangjian.mrtype }}</td>
+                            <td>{{ fangjian.money }}</td>
+                            <td>{{ fangjian.mdate }}</td>
+                            <td>{{ fangjian.mdays }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>
+                            收入总金额
+                            </td>
+                            <td>{{allmoney.money__sum}}</td>
+                        </tr>
+                       </tbody>
+                    </table>
+            </div>
+<!--endprint2-->
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!--分页通常写到一对nav标签中,居中显示-->
+            <nav class="text-center">
+                <!--分页基类容器: .pagination-->
+                <ul class="pagination pagination-md">
+                    <li class="disabled"><a href="">«上一页</a></li>
+                    <li class="active"><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="">4</a></li>
+                    <li><a href="">5</a></li>
+                    <li><a href="">下一页»</a></li>
+                </ul>
+
+            </nav>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<!--<script src="js/bootstrap.min.js"></script>-->
+</body>
+</html>
